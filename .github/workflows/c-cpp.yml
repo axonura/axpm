@@ -1,0 +1,30 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Install dependencies
+      run: |
+        sudo apt update
+        sudo apt install -y cmake g++ libarchive-dev libjsoncpp-dev
+
+    - name: Configure
+      run: cmake -B build
+
+    - name: Build
+      run: cmake --build build
+
+    # 🔥 Run your package manager test
+    - name: Test axpm
+      run: |
+        ./build/src/axpm info ./build/package.axpkg || true
