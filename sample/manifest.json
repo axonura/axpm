@@ -1,0 +1,12 @@
+{
+    "name": "Simple Calculator",
+    "package": "simple-calculator",
+    "author": [ "First Person" ],
+    "version": "1.0.0",
+    "requiresRoot": true,
+    "scripts": [],
+    "installionPaths": {
+        "calc": "${INSTALLION_DIR}/usr/bin/calc"
+    },
+    "dependencies": {}
+}
