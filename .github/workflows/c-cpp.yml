@@ -27,5 +27,5 @@ jobs:
     # 🔥 Run your package manager test
     - name: Test axpm
       run: |
-        cd build && make calc
+        cd build && make sample
         ./src/axpm info package.axpkg || true
