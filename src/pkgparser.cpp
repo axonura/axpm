@@ -33,6 +33,16 @@ bool isPathOrNot(const std::string& s) {
     }
 }
 
+bool isPKGInstalled(string pakg) {
+    const std::string home = std::getenv("HOME") ? std::getenv("HOME") : "";
+    const std::string sysPath = "/etc/axpm/" + pakg + "/manifest.json";
+
+    if(fs::exists(sysPath) || fs::exists(home + "/.axroot" + sysPath))
+        return true;
+    else
+        return false;
+}
+
 bool isPKGExist(string pakg) {
     if(isPathOrNot(pakg)) {
         if(fs::exists(pakg))
@@ -41,13 +51,7 @@ bool isPKGExist(string pakg) {
             return false;
     }
     else {
-        std::string home = std::getenv("HOME") ? std::getenv("HOME") : "";
-        std::string sysPath = "/etc/axpm/" + pakg + "/manifest.json";
-
-        if(fs::exists(sysPath) || fs::exists(home + "/.axroot" + sysPath))
-            return true;
-        else
-            return false;
+        return isPKGInstalled(pakg);
     }
 }
 
@@ -165,7 +169,18 @@ package getPackageInfo(string pakg) {
         dep.name = key;
         dep.requiredVersion = deps[key].asString();
         pkg.depedencies.push_back(dep);
-    }
+     return pkg;
+}
 
-    return pkg;
+void installPackages(std::string pakg, bool reinstall = false, bool fixBroken = false, bool requireConfirmation = true) {
+    package pkg;
+    if(isPathOrNot(pakg)) {
+        pkg = getPackageInfo(pakg);
+        if(!isPKGInstalled(pkg.name)) {
+            // TODO: I Will Be Implement
+        }
+    }
+    else {
+        // TODO: Logic Will Be Implemented
+    }
 }
